@@ -2,21 +2,20 @@ package com.example.todoorganizer.model;
 
 import jakarta.persistence.*;
 
-import java.sql.Date;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "todolist")
 public class TodoList {
     public TodoList() {
+
     }
 
-    public TodoList(long id, String taskName, String description, LocalDateTime createdAt, LocalDateTime dueBy, Integer duration_in_mins, String hashtags, String status, String comment, Integer priority, String resource) {
+    public TodoList(long id, String taskName, String description, LocalDateTime dueBy, Integer duration_in_mins, String hashtags, String status, String comment, Integer priority, String resource) {
         super();
         this.id = id;
         this.taskName = taskName;
         this.description = description;
-        this.createdAt = createdAt;
         this.DueBy = dueBy;
         this.duration_in_mins = duration_in_mins;
         this.hashtags = hashtags;
@@ -35,6 +34,10 @@ public class TodoList {
     private String description;
     @Column(name = "created")
     private LocalDateTime createdAt;
+    @PrePersist
+    private void prePersist(){
+        createdAt = LocalDateTime.now();
+    }
     @Column(name = "due_date")
     private LocalDateTime DueBy;
     @Column(name = "Duration")
